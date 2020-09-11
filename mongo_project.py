@@ -16,6 +16,24 @@ def mongo_connect(url):
     except pymongo.errors.ConnectionFailure as e:
         print("Could not connect to MongoDB:%s") % e
 
+
+def get_record():
+    print("")
+    first = input("Enter first name > ")
+    last = input("Enter last name > ")
+
+    try:
+        doc = coll.find_one({'first': first.lower(), 'last': last.lower()})
+    except:
+        print("Error accessing the database")
+    
+    if not doc:
+        print("")
+        print("Error! No results found.")
+    
+    return doc
+
+
 def show_menu():
     print("")
     print("1. Add a record")
@@ -27,21 +45,6 @@ def show_menu():
     option = input("Enter an option: ")
     return option
 
-def get_record()
-    print("")
-    first = input("Enter First Name > ")
-    last = input("Enter Last Name > ")
-
-    try:
-        doc = coll.find_one({'first': first.lower(), 'last': last.lower()})
-        except:
-            print("Error Accessing the Database")
-
-        if not doc:
-            print("")
-            print("Error! No results Found")
-
-        return doc
 
 def add_record():
     print("")
@@ -64,6 +67,13 @@ def add_record():
     except:
         print("Error Accessing the Database")
 
+def find_record():
+    doc = get_record()
+    if doc:
+        print("")
+        for k, v in doc.items():
+            if k != "_id":
+                print(k.capitalize() + ": " + v.capitalize())
 
 def main_loop():
     while True:
@@ -71,7 +81,7 @@ def main_loop():
         if option == "1":
             add_record()
         elif option == "2":
-            print("You have selected option 2")
+            find_record()
         elif option == "3":
             print("You have selected option 3")
         elif option == "4":
