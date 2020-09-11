@@ -94,9 +94,7 @@ def edit_record():
             print("Error accessing the Database")
 
 def delete_record():
-
     doc = get_record()
-
     if doc:
         print("")
         for k,v in doc.items():
@@ -127,7 +125,7 @@ def main_loop():
         elif option == "3":
             edit_record()
         elif option == "4":
-            delete_record
+            delete_record()
         elif option == "5":
             conn.close()
             break
